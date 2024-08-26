@@ -1,7 +1,5 @@
 package utils;
 
-import java.util.Arrays;
-
 public class Utils {
     public static void logger(String string) {
         final String ANSI_RESET = "\u001B[0m";

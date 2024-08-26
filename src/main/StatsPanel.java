@@ -1,3 +1,5 @@
+package main;
+
 import utils.Config;
 import utils.Profiler;
 
@@ -34,17 +36,18 @@ public class StatsPanel extends JPanel implements Runnable {
 
         Graphics2D g2d = (Graphics2D) g;
 
-        //Label processingTime = new Label();
-        //processingTime.setText("etxt");
-        //processingTime.setAlignment(Label.LEFT);
-
         double roundingFactor = Math.pow(10, Config.DISPLAY_DECIMALS);
 
         g2d.setFont(new Font("Arial", Font.BOLD, 15));
 
-        double percentOfMax = (Math.round(((profiler.frameTime / Config.MAX_FRAME_DURATION_MILLIS) * 100) * roundingFactor) / roundingFactor);
+        double percentOfMax = (Math.round(((profiler.processingTime / Config.MAX_FRAME_DURATION_MILLIS) * 100) * roundingFactor) / roundingFactor);
 
-        g2d.drawString("Processing time taken (% of max): " + profiler.frameTime + " (" + percentOfMax + "%)", 0, 15);
+        //  make string to show
+        String processingTimeString = "Processing time taken (% of max): " + profiler.processingTime + "ms (" + percentOfMax + "%)";
+        String fpsString = "FPS: " + Math.round(profiler.fps);
+        String finalString = processingTimeString + " | " + fpsString;
+
+        g2d.drawString(finalString, 0, 15);
 
         g2d.dispose();
     }

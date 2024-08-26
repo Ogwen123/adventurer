@@ -1,3 +1,6 @@
+package main;
+
+import entity.Player;
 import handlers.KeyHandler;
 import utils.Profiler;
 import utils.Config;
@@ -11,10 +14,7 @@ public class GamePanel extends JPanel implements Runnable {
     Profiler profiler;
     KeyHandler keyHandler = new KeyHandler();
 
-    // player data
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4;
+    Player player = new Player(this, keyHandler);
 
     public GamePanel(Profiler profiler) {
         this.setPreferredSize(new Dimension(Config.tileSize * Config.WINDOW_TILE_WIDTH, Config.tileSize * Config.WINDOW_TILE_HEIGHT));
@@ -48,11 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        // update player position
-        if (keyHandler.up) playerY -= playerSpeed;
-        if (keyHandler.down) playerY += playerSpeed;
-        if (keyHandler.left) playerX -= playerSpeed;
-        if (keyHandler.right) playerX += playerSpeed;
+        player.update();
     }
 
     public void paintComponent(Graphics g) {
@@ -60,8 +56,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2d = (Graphics2D) g;
 
-        g2d.setColor(Color.white);
-        g2d.fillRect(playerX, playerY, Config.tileSize, Config.tileSize); // draws a square :)
+    player.draw(g2d);
 
         g2d.dispose();
     }

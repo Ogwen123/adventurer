@@ -1,5 +1,7 @@
 package utils;
 
+import java.awt.event.KeyEvent;
+
 public class Config {
 
     public static final int originalTileSize = 16;
@@ -15,7 +17,15 @@ public class Config {
 
     static public final boolean SHOW_STATS_PANEL = true;
     static public final int STATS_PANEL_HEIGHT = 25;
-    static public final int STATS_PANEL_WIDTH = 400;
+    static public final int STATS_PANEL_WIDTH = 600;
     static public final int DISPLAY_DECIMALS = 2;
+
+    public static class Keys {
+        static public int up = KeyEvent.VK_W;
+        static public int down = KeyEvent.VK_S;
+        static public int left = KeyEvent.VK_A;
+        static public int right = KeyEvent.VK_D;
+
+    }
 
 }

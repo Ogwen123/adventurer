@@ -1,3 +1,5 @@
+package main;
+
 import utils.Config;
 import utils.Profiler;
 import javax.swing.*;
@@ -19,6 +21,7 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         GamePanel gamePanel = new GamePanel(profiler);
+        gamePanel.setBounds(0, 0, Config.tileSize * Config.WINDOW_TILE_WIDTH, Config.tileSize * Config.WINDOW_TILE_HEIGHT);
 
         if (Config.SHOW_STATS_PANEL) {
             JLayeredPane container = new JLayeredPane();
@@ -26,7 +29,6 @@ public class Main {
 
             StatsPanel statsPanel = new StatsPanel(profiler);
 
-            gamePanel.setBounds(0, 0, Config.tileSize * Config.WINDOW_TILE_WIDTH, Config.tileSize * Config.WINDOW_TILE_HEIGHT);
             statsPanel.setBounds(0, 0, Config.STATS_PANEL_WIDTH, Config.STATS_PANEL_HEIGHT);
 
             container.add(gamePanel, JLayeredPane.DEFAULT_LAYER);

@@ -2,6 +2,7 @@ package handlers;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import utils.Config;
 
 public class KeyHandler implements KeyListener {
 
@@ -14,10 +15,10 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_W) up = true;
-        if (code == KeyEvent.VK_S) down = true;
-        if (code == KeyEvent.VK_A) left = true;
-        if (code == KeyEvent.VK_D) right = true;
+        if (code == Config.Keys.up) up = true;
+        if (code == Config.Keys.down) down = true;
+        if (code == Config.Keys.left) left = true;
+        if (code == Config.Keys.right) right = true;
 
     }
 
@@ -25,9 +26,9 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_W) up = false;
-        if (code == KeyEvent.VK_S) down = false;
-        if (code == KeyEvent.VK_A) left = false;
-        if (code == KeyEvent.VK_D) right = false;
+        if (code == Config.Keys.up) up = false;
+        if (code == Config.Keys.down) down = false;
+        if (code == Config.Keys.left) left = false;
+        if (code == Config.Keys.right) right = false;
     }
 }
