@@ -1,5 +1,6 @@
+import utils.Profiler;
+
 import javax.swing.JFrame;
-import java.awt.*;
 
 public class Main {
     static JFrame window;
@@ -10,7 +11,7 @@ public class Main {
 
 
         window = new JFrame();
-        window.setTitle("Space Invaders");
+        window.setTitle("Adventurer");
         window.setResizable(false);
         //window.setSize(tileSize * 20, tileSize * 16); // 20 tiles by 16 tiles
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
