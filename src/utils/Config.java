@@ -21,10 +21,10 @@ public class Config {
     static public final int DISPLAY_DECIMALS = 2;
 
     public static class Keys {
-        static public int up = KeyEvent.VK_W;
-        static public int down = KeyEvent.VK_S;
-        static public int left = KeyEvent.VK_A;
-        static public int right = KeyEvent.VK_D;
+        static public final int key_up = KeyEvent.VK_W;
+        static public final int key_down = KeyEvent.VK_S;
+        static public final int key_left = KeyEvent.VK_A;
+        static public final int key_right = KeyEvent.VK_D;
 
     }
 

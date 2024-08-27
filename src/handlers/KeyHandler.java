@@ -15,10 +15,10 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (code == Config.Keys.up) up = true;
-        if (code == Config.Keys.down) down = true;
-        if (code == Config.Keys.left) left = true;
-        if (code == Config.Keys.right) right = true;
+        if (code == Config.Keys.key_up) up = true;
+        if (code == Config.Keys.key_down) down = true;
+        if (code == Config.Keys.key_left) left = true;
+        if (code == Config.Keys.key_right) right = true;
 
     }
 
@@ -26,9 +26,9 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (code == Config.Keys.up) up = false;
-        if (code == Config.Keys.down) down = false;
-        if (code == Config.Keys.left) left = false;
-        if (code == Config.Keys.right) right = false;
+        if (code == Config.Keys.key_up) up = false;
+        if (code == Config.Keys.key_down) down = false;
+        if (code == Config.Keys.key_left) left = false;
+        if (code == Config.Keys.key_right) right = false;
     }
 }
