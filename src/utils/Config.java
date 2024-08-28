@@ -20,7 +20,7 @@ public class Config {
     static public final int STATS_PANEL_WIDTH = 800;
     static public final int DISPLAY_DECIMALS = 2;
 
-    static public final int cameraBuffer = 100;
+    static public final int cameraBuffer = 0;
 
     public static class Keys {
         static public final int key_up = KeyEvent.VK_W;
