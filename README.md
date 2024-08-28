@@ -13,8 +13,13 @@ relearning java before uni
    - [x] player left 2
    - [x] player right 1
    - [x] player right 2
- - [ ] tile images
+ - [x] tile images
    - [x] water
    - [x] dirt
    - [x] wall
    - [x] grass
+ - [ ] camera system
+ - [ ] collision with collide-able tiles like walls
+ - [ ] only render tiles that will show on the screen (not really needed but could be interesting to do)
+ - [ ] main menu
+ - [ ] save system

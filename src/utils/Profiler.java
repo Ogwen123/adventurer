@@ -7,6 +7,8 @@ public class Profiler {
     public boolean seen = false;
     private long lastUpdate;
 
+    public int cameraX, cameraY;
+
     // constants
 
 
@@ -16,7 +18,7 @@ public class Profiler {
         lastUpdate = System.nanoTime();
     }
 
-    public void updateProfilerStats(long processingTimeTaken) { // processingTimeTaken is in nanoseconds
+    public void updateProfilerStats(long processingTimeTaken, int cameraX, int cameraY) { // processingTimeTaken is in nanoseconds
         if (!Config.SHOW_STATS_PANEL) return;
         // calculate fps
         long time = System.nanoTime();
@@ -27,5 +29,8 @@ public class Profiler {
         double roundingFactor = Math.pow(10, Config.DISPLAY_DECIMALS);
         this.processingTime = (double) Math.round(((float) processingTimeTaken / 1_000_000) * roundingFactor) / roundingFactor; // nano to millis
         this.seen = false;
+
+        this.cameraX = cameraX;
+        this.cameraY = cameraY;
     }
 }

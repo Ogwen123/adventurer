@@ -13,6 +13,8 @@ public class Player extends Entity{
     GamePanel gamePanel;
     KeyHandler keyHandler;
 
+
+
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
@@ -25,8 +27,10 @@ public class Player extends Entity{
         this.x = 0;
         this.y = 0;
         this.speed = 4;
-        direction = Direction.NONE;
-        animation_duration = 10;
+        gamePanel.cameraX = 0;
+        gamePanel.cameraY = 0;
+        this.direction = Direction.NONE;
+        this.animation_duration = 10;
     }
 
     public void getPlayerImages() {
@@ -56,9 +60,45 @@ public class Player extends Entity{
         }
     }
 
+    public void updateCamera() {
+        // check if the camera position needs to be updated
+        // move it by the players speed in the necessary direction
+
+        /*
+        if (gamePanel.cameraX - x > 200) {
+            //right
+            gamePanel.cameraX += speed;
+        }
+        if (gamePanel.cameraX - x < -200) {
+            //left
+            gamePanel.cameraX -= speed;
+        }
+        if (gamePanel.cameraY - y > 200) {
+            //down
+            gamePanel.cameraY += speed;
+        }
+        if (gamePanel.cameraY - y < -200) {
+            //up
+            gamePanel.cameraY -= speed;
+        }
+        */
+        if (keyHandler.up && !keyHandler.down) {// the '&& !...' bit is to not animate when opposing keys are held
+            gamePanel.cameraY += speed;
+        }
+        if (keyHandler.down && !keyHandler.up) {
+            gamePanel.cameraY -= speed;
+        }
+        if (keyHandler.left && !keyHandler.right) {
+            gamePanel.cameraX += speed;
+        }
+        if (keyHandler.right && !keyHandler.left) {
+            gamePanel.cameraX -= speed;
+        }
+    }
+
     public void playerMovement() {
         direction = Direction.NONE; // reset direction
-
+        updateCamera();
         // update player position
         if (keyHandler.up && !keyHandler.down) {// the '&& !...' bit is to not animate when opposing keys are held
             direction = Direction.UP;
@@ -92,6 +132,6 @@ public class Player extends Entity{
             default -> stationary;
         };
 
-        g2d.drawImage(image, coordsToScreenLoc(x, Plane.X), coordsToScreenLoc(y, Plane.Y), Config.tileSize, Config.tileSize, null);
+        g2d.drawImage(image, coordsToScreenLoc(x, Plane.X) + gamePanel.cameraX, coordsToScreenLoc(y, Plane.Y) + gamePanel.cameraY, Config.tileSize, Config.tileSize, null);
     }
 }

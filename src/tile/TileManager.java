@@ -82,23 +82,12 @@ public class TileManager {
             }
             map.add(rowList);
         }
-        printMap();
-    }
-
-    public void printMap() {
-        // test
-        for (int i = 0; i < map.size(); i++) {
-            for (int j = 0; j < map.getFirst().size(); j++) {
-                System.out.print(map.get(i).get(j));
-            }
-            System.out.println();
-        }
     }
 
     public int tileCoordToScreenLoc(int coord, Plane plane) {
         return (int) Math.floor((double) (coord * Config.tileSize) + ((double) ((plane == Plane.X ? Config.WINDOW_TILE_WIDTH : Config.WINDOW_TILE_HEIGHT) * Config.tileSize) / 2));
     }
-    boolean done = false;
+
     public void draw(Graphics2D g2d) {
 
         for (int i = 0; i < map.size(); i++) {
@@ -106,9 +95,8 @@ public class TileManager {
                 int id = map.get(i).get(j);
                 int tileX = j - centreTileX;
                 int tileY = i - centreTileY;
-                g2d.drawImage(tiles[id].tile, tileCoordToScreenLoc(tileX, Plane.X), tileCoordToScreenLoc(tileY, Plane.Y), Config.tileSize, Config.tileSize, null);
+                g2d.drawImage(tiles[id].tile, tileCoordToScreenLoc(tileX, Plane.X) + gamePanel.cameraX, tileCoordToScreenLoc(tileY, Plane.Y) + gamePanel.cameraY, Config.tileSize, Config.tileSize, null);
             }
         }
-        done = true;
     }
 }

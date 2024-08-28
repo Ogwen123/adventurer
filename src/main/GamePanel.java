@@ -17,6 +17,7 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager tileManager = new TileManager(this);
 
     Player player = new Player(this, keyHandler);
+    public int cameraX, cameraY;
 
     public GamePanel(Profiler profiler) {
         this.setPreferredSize(new Dimension(Config.tileSize * Config.WINDOW_TILE_WIDTH, Config.tileSize * Config.WINDOW_TILE_HEIGHT));
@@ -45,7 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            profiler.updateProfilerStats(timeTaken);
+            profiler.updateProfilerStats(timeTaken, cameraX, cameraY);
         }
     }
 

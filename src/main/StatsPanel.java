@@ -45,7 +45,8 @@ public class StatsPanel extends JPanel implements Runnable {
         //  make string to show
         String processingTimeString = "Processing time taken (% of max): " + profiler.processingTime + "ms (" + percentOfMax + "%)";
         String fpsString = "FPS: " + Math.round(profiler.fps);
-        String finalString = processingTimeString + " | " + fpsString;
+        String cameraPosition = "CamX: " + profiler.cameraX + ", CamY: " + profiler.cameraY;
+        String finalString = processingTimeString + " | " + fpsString + " | " + cameraPosition;
 
         g2d.drawString(finalString, 0, 15);
 
