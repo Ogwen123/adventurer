@@ -19,7 +19,7 @@ relearning java before uni
    - [x] wall
    - [x] grass
  - [x] camera system
- - [ ] make camera system have a buffer where it doesn't do anything for the first ~100 pixels of walking 
+ - [x] make camera system have a buffer where it doesn't do anything for the first ~100 pixels of walking 
  - [ ] collision with collide-able tiles like walls
  - [ ] only render tiles that will show on the screen (not really needed but could be interesting to do)
  - [ ] main menu

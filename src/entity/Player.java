@@ -13,8 +13,6 @@ public class Player extends Entity{
     GamePanel gamePanel;
     KeyHandler keyHandler;
 
-
-
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
@@ -64,36 +62,25 @@ public class Player extends Entity{
         // check if the camera position needs to be updated
         // move it by the players speed in the necessary direction
 
-        /*
-        if (gamePanel.cameraX - x > 200) {
-            //right
-            gamePanel.cameraX += speed;
-        }
-        if (gamePanel.cameraX - x < -200) {
-            //left
-            gamePanel.cameraX -= speed;
-        }
-        if (gamePanel.cameraY - y > 200) {
-            //down
+        int screenX = coordsToScreenLoc(x, Plane.X, gamePanel.cameraX);
+        int screenY = coordsToScreenLoc(y, Plane.Y, gamePanel.cameraY);
+
+        int screenCentreX = (Config.WINDOW_TILE_WIDTH * Config.tileSize) / 2;
+        int screenCentreY = (Config.WINDOW_TILE_HEIGHT * Config.tileSize) / 2;
+
+        if (((screenY + Config.tileSize / 2) < screenCentreY - Config.cameraBuffer) && keyHandler.up) {
             gamePanel.cameraY += speed;
         }
-        if (gamePanel.cameraY - y < -200) {
-            //up
+        if (((screenY + Config.tileSize / 2) > screenCentreY + Config.cameraBuffer) && keyHandler.down) {
             gamePanel.cameraY -= speed;
         }
-        */
-        if (keyHandler.up && !keyHandler.down) {// the '&& !...' bit is to not animate when opposing keys are held
-            gamePanel.cameraY += speed;
-        }
-        if (keyHandler.down && !keyHandler.up) {
-            gamePanel.cameraY -= speed;
-        }
-        if (keyHandler.left && !keyHandler.right) {
+        if (((screenX + Config.tileSize / 2) < screenCentreX - Config.cameraBuffer) && keyHandler.left) {
             gamePanel.cameraX += speed;
         }
-        if (keyHandler.right && !keyHandler.left) {
+        if (((screenX + Config.tileSize / 2) > screenCentreX + Config.cameraBuffer) && keyHandler.right) {
             gamePanel.cameraX -= speed;
         }
+
     }
 
     public void playerMovement() {
@@ -117,6 +104,7 @@ public class Player extends Entity{
             x += speed;
         }
 
+
         // TODO maybe: stop diagonal movement from increasing speed by doing some goofy pythag
     }
 
@@ -132,6 +120,6 @@ public class Player extends Entity{
             default -> stationary;
         };
 
-        g2d.drawImage(image, coordsToScreenLoc(x, Plane.X) + gamePanel.cameraX, coordsToScreenLoc(y, Plane.Y) + gamePanel.cameraY, Config.tileSize, Config.tileSize, null);
+        g2d.drawImage(image, coordsToScreenLoc(x, Plane.X, gamePanel.cameraX), coordsToScreenLoc(y, Plane.Y, gamePanel.cameraY), Config.tileSize, Config.tileSize, null);
     }
 }

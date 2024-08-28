@@ -98,5 +98,7 @@ public class TileManager {
                 g2d.drawImage(tiles[id].tile, tileCoordToScreenLoc(tileX, Plane.X) + gamePanel.cameraX, tileCoordToScreenLoc(tileY, Plane.Y) + gamePanel.cameraY, Config.tileSize, Config.tileSize, null);
             }
         }
+
+        if (Config.Debug.showCameraBufferBox) g2d.drawRect(480 - Config.cameraBuffer, 384 - Config.cameraBuffer, Config.cameraBuffer * 2 , Config.cameraBuffer * 2);
     }
 }

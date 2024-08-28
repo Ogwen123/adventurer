@@ -46,7 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            profiler.updateProfilerStats(timeTaken, cameraX, cameraY);
+            profiler.updateProfilerStats(timeTaken, cameraX, cameraY, player.x, player.y);
         }
     }
 
@@ -61,7 +61,6 @@ public class GamePanel extends JPanel implements Runnable {
 
         tileManager.draw(g2d);
         player.draw(g2d);
-
 
         g2d.dispose();
     }

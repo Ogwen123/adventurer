@@ -17,8 +17,10 @@ public class Config {
 
     static public final boolean SHOW_STATS_PANEL = true;
     static public final int STATS_PANEL_HEIGHT = 25;
-    static public final int STATS_PANEL_WIDTH = 600;
+    static public final int STATS_PANEL_WIDTH = 800;
     static public final int DISPLAY_DECIMALS = 2;
+
+    static public final int cameraBuffer = 100;
 
     public static class Keys {
         static public final int key_up = KeyEvent.VK_W;
@@ -26,6 +28,10 @@ public class Config {
         static public final int key_left = KeyEvent.VK_A;
         static public final int key_right = KeyEvent.VK_D;
 
+    }
+
+    public static class Debug {
+        static public final boolean showCameraBufferBox = false;
     }
 
 }

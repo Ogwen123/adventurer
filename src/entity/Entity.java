@@ -27,7 +27,7 @@ public class Entity {
         Y
     }
 
-    public int coordsToScreenLoc(double coord, Plane plane) {
-        return (int) Math.round(coord + ((double) ((plane == Plane.X ? Config.WINDOW_TILE_WIDTH : Config.WINDOW_TILE_HEIGHT) * Config.tileSize) / 2) - ((double) Config.tileSize / 2));
+    public int coordsToScreenLoc(double coord, Plane plane, int camera) {
+        return (int) Math.round(coord + ((double) ((plane == Plane.X ? Config.WINDOW_TILE_WIDTH : Config.WINDOW_TILE_HEIGHT) * Config.tileSize) / 2) - ((double) Config.tileSize / 2) + camera);
     }
 }

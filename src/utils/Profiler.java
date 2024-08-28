@@ -8,6 +8,7 @@ public class Profiler {
     private long lastUpdate;
 
     public int cameraX, cameraY;
+    public double x, y;
 
     // constants
 
@@ -18,7 +19,7 @@ public class Profiler {
         lastUpdate = System.nanoTime();
     }
 
-    public void updateProfilerStats(long processingTimeTaken, int cameraX, int cameraY) { // processingTimeTaken is in nanoseconds
+    public void updateProfilerStats(long processingTimeTaken, int cameraX, int cameraY, double playerX, double playerY) { // processingTimeTaken is in nanoseconds
         if (!Config.SHOW_STATS_PANEL) return;
         // calculate fps
         long time = System.nanoTime();
@@ -32,5 +33,7 @@ public class Profiler {
 
         this.cameraX = cameraX;
         this.cameraY = cameraY;
+        this.x = playerX;
+        this.y = playerY;
     }
 }
