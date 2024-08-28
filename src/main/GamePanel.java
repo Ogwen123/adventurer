@@ -1,7 +1,8 @@
 package main;
 
 import entity.Player;
-import handlers.KeyHandler;
+import tile.TileManager;
+import utils.handlers.KeyHandler;
 import utils.Profiler;
 import utils.Config;
 
@@ -13,6 +14,7 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     Profiler profiler;
     KeyHandler keyHandler = new KeyHandler();
+    TileManager tileManager = new TileManager(this);
 
     Player player = new Player(this, keyHandler);
 
@@ -56,7 +58,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2d = (Graphics2D) g;
 
-    player.draw(g2d);
+        tileManager.draw(g2d);
+        player.draw(g2d);
+
 
         g2d.dispose();
     }

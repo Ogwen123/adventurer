@@ -1,5 +1,5 @@
 package entity;
-import handlers.KeyHandler;
+import utils.handlers.KeyHandler;
 import main.GamePanel;
 import utils.Config;
 
@@ -22,8 +22,8 @@ public class Player extends Entity{
     }
 
     public void initValues() {
-        this.x = 100;
-        this.y = 100;
+        this.x = 0;
+        this.y = 0;
         this.speed = 4;
         direction = Direction.NONE;
         animation_duration = 10;
@@ -92,6 +92,6 @@ public class Player extends Entity{
             default -> stationary;
         };
 
-        g2d.drawImage(image, (int) Math.round(x), (int) Math.round(y), Config.tileSize, Config.tileSize, null);
+        g2d.drawImage(image, coordsToScreenLoc(x, Plane.X), coordsToScreenLoc(y, Plane.Y), Config.tileSize, Config.tileSize, null);
     }
 }

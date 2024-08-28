@@ -1,5 +1,7 @@
 package entity;
 
+import utils.Config;
+
 import java.awt.image.BufferedImage;
 
 public class Entity {
@@ -19,4 +21,13 @@ public class Entity {
     public boolean sprite; // using boolean to make it easier to switch between the two sprite options
     public int spriteTracker;
     public int animation_duration; // number of frames before the sprite switches
+
+    public enum Plane {
+        X,
+        Y
+    }
+
+    public int coordsToScreenLoc(double coord, Plane plane) {
+        return (int) Math.round(coord + ((double) ((plane == Plane.X ? Config.WINDOW_TILE_WIDTH : Config.WINDOW_TILE_HEIGHT) * Config.tileSize) / 2) - ((double) Config.tileSize / 2));
+    }
 }
