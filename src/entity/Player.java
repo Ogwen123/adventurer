@@ -29,6 +29,7 @@ public class Player extends Entity{
         gamePanel.cameraY = 0;
         this.direction = Direction.NONE;
         this.animation_duration = 10;
+        this.collisionArea = new Rectangle(8, 16, Config.tileSize * 2 / 3, Config.tileSize * 2 / 3);
     }
 
     public void getPlayerImages() {
@@ -48,7 +49,15 @@ public class Player extends Entity{
     }
 
     public void update() {
-        playerMovement();
+        playerDirection();
+
+        collisionOn = false;
+        gamePanel.collisionChecker.checkTile(this);
+
+        if (!collisionOn) {
+            updateCamera();
+            playerMovement();
+        }
 
         // handle animating the motion of the sprite
         spriteTracker++;
@@ -83,29 +92,38 @@ public class Player extends Entity{
 
     }
 
-    public void playerMovement() {
+    public void playerDirection() {
         direction = Direction.NONE; // reset direction
-        updateCamera();
+
         // update player position
         if (keyHandler.up && !keyHandler.down) {// the '&& !...' bit is to not animate when opposing keys are held
             direction = Direction.UP;
-            y -= speed;
         }
         if (keyHandler.down && !keyHandler.up) {
             direction = Direction.DOWN;
-            y += speed;
         }
         if (keyHandler.left && !keyHandler.right) {
             direction = Direction.LEFT;
-            x -= speed;
         }
         if (keyHandler.right && !keyHandler.left) {
             direction = Direction.RIGHT;
+        }
+    }
+
+    public void playerMovement() {
+
+        if (direction == Direction.UP) {// the '&& !...' bit is to not animate when opposing keys are held
+            y -= speed;
+        }
+        if (direction == Direction.DOWN) {
+            y += speed;
+        }
+        if (direction == Direction.LEFT) {
+            x -= speed;
+        }
+        if (direction == Direction.RIGHT) {
             x += speed;
         }
-
-
-        // TODO maybe: stop diagonal movement from increasing speed by doing some goofy pythag
     }
 
     public void draw(Graphics2D g2d) {

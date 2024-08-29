@@ -13,10 +13,10 @@ import java.util.Objects;
 
 public class TileManager {
     GamePanel gamePanel;
-    Tile[] tiles;
-    ArrayList<ArrayList<Integer>> map = new ArrayList<>();
+    public Tile[] tiles;
+    public ArrayList<ArrayList<Integer>> map = new ArrayList<>();
     // map meta data
-    int centreTileX, centreTileY;
+    public int centreTileX, centreTileY;
 
     // THE BARRIER TILE SHOULD ALWAYS BE THE LAST TILE IN THE LIST
     private final String[][] tileNames = {{"dirt", "false"}, {"grass", "false"}, {"wall", "true"}, {"water_1", "false"}, {"water_2", "false"}, {"barrier", "true"}}; // {name, whether the block can be collided with}
@@ -35,7 +35,11 @@ public class TileManager {
             for (int i = 0; i < tileNames.length; i++) {
                 tiles[i] = new Tile();
                 tiles[i].tile = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/" + tileNames[i][0] + ".png")));
-                tiles[i].collision = (Objects.equals(tileNames[i][0], "true"));
+                System.out.println(tileNames[i][0]);
+                System.out.println((Objects.equals(tileNames[i][1], "true")));
+                System.out.println(tileNames[i][1]);
+                System.out.println("---------------------------");
+                tiles[i].collision = (Objects.equals(tileNames[i][1], "true"));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -43,7 +47,7 @@ public class TileManager {
     }
 
     public void loadMap() {
-        InputStream stream = getClass().getClassLoader().getResourceAsStream("maps/map_04.txt");
+        InputStream stream = getClass().getClassLoader().getResourceAsStream("maps/map_03.txt");
         if (stream == null) return;
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 

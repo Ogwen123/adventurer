@@ -2,10 +2,11 @@ package entity;
 
 import utils.Config;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity {
-    public double x, y;
+    public int x, y;
     public int speed;
 
     public enum Direction {
@@ -22,12 +23,15 @@ public class Entity {
     public int spriteTracker;
     public int animation_duration; // number of frames before the sprite switches
 
+    public Rectangle collisionArea;
+    public boolean collisionOn = false;
+
     public enum Plane {
         X,
         Y
     }
 
     public int coordsToScreenLoc(double coord, Plane plane, int camera) {
-        return (int) Math.round(coord + ((double) ((plane == Plane.X ? Config.WINDOW_TILE_WIDTH : Config.WINDOW_TILE_HEIGHT) * Config.tileSize) / 2) - ((double) Config.tileSize / 2) + camera);
+        return (int) Math.round(coord + ((double) ((plane == Plane.X ? Config.WINDOW_TILE_WIDTH : Config.WINDOW_TILE_HEIGHT) * Config.tileSize) / 2) + camera);
     }
 }

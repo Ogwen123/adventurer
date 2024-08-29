@@ -12,14 +12,19 @@ import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
 
+    // game classes
     Thread gameThread;
-    Profiler profiler;
     KeyHandler keyHandler = new KeyHandler();
     TileManager tileManager = new TileManager(this);
-    DebugManager debug = new DebugManager(tileManager, this);
-
     Player player = new Player(this, keyHandler);
+    public CollisionChecker collisionChecker = new CollisionChecker(this);
+
+    // game variables
     public int cameraX, cameraY;
+
+    // debug classes
+    Profiler profiler;
+    DebugManager debug = new DebugManager(tileManager, this);
 
     public GamePanel(Profiler profiler) {
         this.setPreferredSize(new Dimension(Config.tileSize * Config.WINDOW_TILE_WIDTH, Config.tileSize * Config.WINDOW_TILE_HEIGHT));
