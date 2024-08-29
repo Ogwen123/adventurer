@@ -105,7 +105,9 @@ public class TileManager {
         double yDist = y1 - y2;
 
         //pythag
-        return Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
+        double distance = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
+
+        return distance;
     }
 
     public void draw(Graphics2D g2d) {
@@ -118,8 +120,7 @@ public class TileManager {
 
                 // optimisations
                 double distance = distance(tileX * Config.tileSize, tileY * Config.tileSize, gamePanel.getPlayerX(), gamePanel.getPlayerY());
-                int threshold = (Math.max(Config.WINDOW_TILE_HEIGHT * Config.tileSize, Config.WINDOW_TILE_WIDTH * Config.tileSize) + 100);
-                System.out.println(tileX + " " + tileY + " " + distance + " " + threshold);
+                int threshold = (Math.max(Config.WINDOW_TILE_HEIGHT * Config.tileSize, Config.WINDOW_TILE_WIDTH * Config.tileSize));
                 if (distance > threshold) continue;
 
                 int id = map.get(i).get(j);

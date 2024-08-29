@@ -14,9 +14,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     Thread gameThread;
     Profiler profiler;
-    DebugManager debug = new DebugManager();
     KeyHandler keyHandler = new KeyHandler();
     TileManager tileManager = new TileManager(this);
+    DebugManager debug = new DebugManager(tileManager, this);
 
     Player player = new Player(this, keyHandler);
     public int cameraX, cameraY;
@@ -74,6 +74,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public double getPlayerY() {
-        return player.x;
+        return player.y;
     }
 }

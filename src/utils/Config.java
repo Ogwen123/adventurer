@@ -36,6 +36,7 @@ public class Config {
         static public final boolean debug = true;
         static public final boolean showStatsPanel = true;
         static public final boolean showCameraBufferBox = false;
+        static public final boolean highlightOriginTile = false;
     }
 
 }

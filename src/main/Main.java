@@ -3,13 +3,12 @@ package main;
 import dev.StatsPanel;
 import utils.Config;
 import utils.Profiler;
+
 import javax.swing.*;
 
 public class Main {
     static JFrame window;
     static Profiler profiler;
-
-
 
     public static void main(String[] args) {
         profiler = new Profiler();
