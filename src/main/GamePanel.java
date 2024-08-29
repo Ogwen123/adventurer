@@ -1,5 +1,6 @@
 package main;
 
+import dev.DebugManager;
 import entity.Player;
 import tile.TileManager;
 import utils.handlers.KeyHandler;
@@ -13,6 +14,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     Thread gameThread;
     Profiler profiler;
+    DebugManager debug = new DebugManager();
     KeyHandler keyHandler = new KeyHandler();
     TileManager tileManager = new TileManager(this);
 
@@ -21,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public GamePanel(Profiler profiler) {
         this.setPreferredSize(new Dimension(Config.tileSize * Config.WINDOW_TILE_WIDTH, Config.tileSize * Config.WINDOW_TILE_HEIGHT));
-        this.setBackground(Color.decode("#4A6741"));
+        this.setBackground(new Color(0));
         this.setDoubleBuffered(true);
         this.profiler = profiler;
         this.addKeyListener(keyHandler);
@@ -61,9 +63,17 @@ public class GamePanel extends JPanel implements Runnable {
 
         tileManager.draw(g2d);
         player.draw(g2d);
+        if (Config.Debug.debug) debug.draw(g2d);
 
         g2d.dispose();
     }
 
+    // getters
+    public double getPlayerX() {
+        return player.x;
+    }
 
+    public double getPlayerY() {
+        return player.x;
+    }
 }

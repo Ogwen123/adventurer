@@ -1,4 +1,4 @@
-package main;
+package dev;
 
 import utils.Config;
 import utils.Profiler;

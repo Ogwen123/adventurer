@@ -1,5 +1,6 @@
 package main;
 
+import dev.StatsPanel;
 import utils.Config;
 import utils.Profiler;
 import javax.swing.*;
@@ -23,7 +24,7 @@ public class Main {
         GamePanel gamePanel = new GamePanel(profiler);
         gamePanel.setBounds(0, 0, Config.tileSize * Config.WINDOW_TILE_WIDTH, Config.tileSize * Config.WINDOW_TILE_HEIGHT);
 
-        if (Config.SHOW_STATS_PANEL) {
+        if (Config.Debug.showStatsPanel) {
             JLayeredPane container = new JLayeredPane();
             window.add(container);
 

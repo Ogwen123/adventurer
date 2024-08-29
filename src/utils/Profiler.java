@@ -20,7 +20,7 @@ public class Profiler {
     }
 
     public void updateProfilerStats(long processingTimeTaken, int cameraX, int cameraY, double playerX, double playerY) { // processingTimeTaken is in nanoseconds
-        if (!Config.SHOW_STATS_PANEL) return;
+        if (!Config.Debug.showStatsPanel) return; // no point wasting processing time if the stats panel isn't being shown
         // calculate fps
         long time = System.nanoTime();
         long timeTaken = time - lastUpdate;
