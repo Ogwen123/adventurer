@@ -2,10 +2,8 @@ package main;
 
 import entity.Entity;
 import entity.Entity.Direction;
-import tile.TileManager;
 import utils.Config;
 
-import java.util.ArrayList;
 
 public class CollisionChecker {
     GamePanel gamePanel;
@@ -22,33 +20,31 @@ public class CollisionChecker {
 
         // convert player coords to tile coord
 
-        int leftVertexTileCoord = (int) Math.floor(leftVertexPlayerCoord / Config.tileSize);
-        int rightVertexTileCoord = (int) Math.floor(rightVertexPlayerCoord / Config.tileSize);
-        int topVertexTileCoord = (int) Math.floor(topVertexPlayerCoord / Config.tileSize);
-        int bottomVertexTileCoord = (int) Math.floor(bottomVertexPlayerCoord / Config.tileSize);
-
-        System.out.println(topVertexPlayerCoord);
-        System.out.println(topVertexPlayerCoord / Config.tileSize);
-        System.out.println(Math.floor(topVertexPlayerCoord / Config.tileSize));
-        System.out.println(topVertexTileCoord + gamePanel.tileManager.centreTileY);
-        System.out.println(leftVertexTileCoord + gamePanel.tileManager.centreTileX);
-        System.out.println("----------------------");
+        int leftVertexTileCoord = leftVertexPlayerCoord / Config.tileSize;
+        int rightVertexTileCoord = rightVertexPlayerCoord / Config.tileSize;
+        int topVertexTileCoord = topVertexPlayerCoord / Config.tileSize;
+        int bottomVertexTileCoord = bottomVertexPlayerCoord / Config.tileSize;
 
         int tile1, tile2;
 
         switch (entity.direction) {
             case Direction.UP:
                 topVertexTileCoord = (topVertexPlayerCoord - entity.speed) / Config.tileSize;
-                ArrayList<Integer> temp = gamePanel.tileManager.map.get(topVertexTileCoord + gamePanel.tileManager.centreTileY);
-                tile1 = temp.get(leftVertexTileCoord + gamePanel.tileManager.centreTileX);
-                tile2 = gamePanel.tileManager.map.get(topVertexTileCoord + gamePanel.tileManager.centreTileY).get(rightVertexTileCoord + gamePanel.tileManager.centreTileX);
-                //System.out.println(leftVertexTileCoord + gamePanel.tileManager.centreTileX);
-                //System.out.println(topVertexTileCoord + gamePanel.tileManager.centreTileY);
-                //System.out.println(tile1);
-                //System.out.println(tile2);
-                //System.out.println(gamePanel.tileManager.tiles[tile1].collision);
-                //System.out.println(gamePanel.tileManager.tiles[tile2].collision);
-                //System.out.println("----------------------");
+
+                System.out.println(topVertexPlayerCoord);
+                System.out.println(leftVertexPlayerCoord);
+                System.out.println(topVertexTileCoord);
+                System.out.println(leftVertexTileCoord);
+                System.out.println("-------------------");
+
+
+                try { // if the index is out of bounds then it is because it is checking the border
+                    tile1 = gamePanel.tileManager.map.get(topVertexTileCoord + gamePanel.tileManager.centreTileY).get(leftVertexTileCoord + gamePanel.tileManager.centreTileX);
+                    tile2 = gamePanel.tileManager.map.get(topVertexTileCoord + gamePanel.tileManager.centreTileY).get(rightVertexTileCoord + gamePanel.tileManager.centreTileX);
+                } catch(IndexOutOfBoundsException e) {
+                    entity.collisionOn = true;
+                    return;
+                }
 
                 gamePanel.debug.highlightX = leftVertexTileCoord;
                 gamePanel.debug.highlightY = topVertexTileCoord;
