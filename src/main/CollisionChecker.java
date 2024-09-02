@@ -31,31 +31,43 @@ public class CollisionChecker {
             case Direction.UP:
                 topVertexTileCoord = (topVertexPlayerCoord - entity.speed) / Config.tileSize;
 
-                System.out.println(topVertexPlayerCoord);
-                System.out.println(leftVertexPlayerCoord);
-                System.out.println(topVertexTileCoord);
-                System.out.println(leftVertexTileCoord);
-                System.out.println("-------------------");
+                gamePanel.debug.collisionY = topVertexTileCoord - 1;
+                gamePanel.debug.collisionX1 = leftVertexTileCoord - 1;
+                gamePanel.debug.collisionX2 = rightVertexTileCoord - 1;
 
-
-                try { // if the index is out of bounds then it is because it is checking the border
-                    tile1 = gamePanel.tileManager.map.get(topVertexTileCoord + gamePanel.tileManager.centreTileY).get(leftVertexTileCoord + gamePanel.tileManager.centreTileX);
-                    tile2 = gamePanel.tileManager.map.get(topVertexTileCoord + gamePanel.tileManager.centreTileY).get(rightVertexTileCoord + gamePanel.tileManager.centreTileX);
+                try {
+                    tile1 = gamePanel.tileManager.map.get(topVertexTileCoord + gamePanel.tileManager.centreTileY - 1).get(leftVertexTileCoord + gamePanel.tileManager.centreTileX - 1);
+                    tile2 = gamePanel.tileManager.map.get(topVertexTileCoord + gamePanel.tileManager.centreTileY - 1).get(rightVertexTileCoord + gamePanel.tileManager.centreTileX - 1);
                 } catch(IndexOutOfBoundsException e) {
                     entity.collisionOn = true;
                     return;
                 }
 
-                gamePanel.debug.highlightX = leftVertexTileCoord;
-                gamePanel.debug.highlightY = topVertexTileCoord;
+                if (gamePanel.tileManager.tiles[tile1].collision || gamePanel.tileManager.tiles[tile2].collision) {
+                    entity.collisionOn = true;
+                }
+                break;
+
+            case Direction.DOWN:
+                bottomVertexTileCoord = (bottomVertexPlayerCoord + entity.speed) / Config.tileSize;
+
+                gamePanel.debug.collisionY = bottomVertexTileCoord - 1;
+                gamePanel.debug.collisionX1 = leftVertexTileCoord - 1;
+                gamePanel.debug.collisionX2 = rightVertexTileCoord - 1;
+
+                try {
+                    tile1 = gamePanel.tileManager.map.get(bottomVertexTileCoord + gamePanel.tileManager.centreTileY - 1).get(leftVertexTileCoord + gamePanel.tileManager.centreTileX - 1);
+                    tile2 = gamePanel.tileManager.map.get(bottomVertexTileCoord + gamePanel.tileManager.centreTileY - 1).get(rightVertexTileCoord + gamePanel.tileManager.centreTileX - 1);
+                } catch(IndexOutOfBoundsException e) {
+                    entity.collisionOn = true;
+                    return;
+                }
 
                 if (gamePanel.tileManager.tiles[tile1].collision || gamePanel.tileManager.tiles[tile2].collision) {
                     entity.collisionOn = true;
                 }
+                break;
 
-                break;
-            case Direction.DOWN:
-                break;
             case Direction.LEFT:
                 break;
             case Direction.RIGHT:

@@ -11,9 +11,6 @@ public class Config {
     static public final int WINDOW_TILE_HEIGHT = 16;
     static public final int WINDOW_TILE_WIDTH = 20;
 
-    static public final int WORLD_TILE_HEIGHT = 10;
-    static public final int WORLD_TILE_WIDTH = 12;
-
     static public int FPS = 60;
     static public double frameDuration = 1_000_000_000.0 / FPS;
     static public double MAX_FRAME_DURATION_MILLIS = 1000.0 / FPS;
@@ -37,7 +34,8 @@ public class Config {
         static public final boolean showStatsPanel = true;
         static public final boolean showCameraBufferBox = false;
         static public final boolean highlightOriginTile = false;
-        static public final boolean highlightSpecifiedTile = true;
+        static public final boolean highlightSpecifiedTile = false;
+        static public final boolean highlightCollisionChecks = true;
     }
 
 }

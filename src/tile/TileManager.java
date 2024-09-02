@@ -97,6 +97,35 @@ public class TileManager {
             }
             map.add(rowList);
         }
+
+        addBorderToMap();
+    }
+
+    public void addBorderToMap() {
+        // add top and bottom
+        int width = map.getFirst().size();
+        int barrierId = tileNames.length - 1;
+        ArrayList<Integer> row = new ArrayList<>();
+        for (int i = 0; i < width + 2; i++) {
+            row.add(barrierId); // barrier should always be last in the tile list
+        }
+
+        ArrayList<ArrayList<Integer>> newMap = new ArrayList<>();
+
+        newMap.add(row);
+
+        for (int i = 0; i < map.size(); i++) {
+            ArrayList<Integer> temp = map.get(i);
+            temp.add(0, barrierId);
+            temp.add(barrierId);
+            newMap.add(temp);
+        }
+
+        newMap.add(row);
+        map = newMap;
+
+        centreTileX += 1;
+        centreTileY += 1;
     }
 
     public int tileCoordToScreenLoc(int coord, Plane plane) {
@@ -132,27 +161,5 @@ public class TileManager {
             }
         }
 
-        // draw border using world dimensions
-
-        // the "+2"s are to move the border out by one because the world should be the world tile height not border
-        // i.e. if the world tile height is 5 the world should be 5x5 and the border should be 7x7
-        for (int i = 0; i < Config.WORLD_TILE_HEIGHT + 2; i++) {
-            for (int j = 0; j < Config.WORLD_TILE_WIDTH + 2; j++) {
-
-                if (i == 0 || i == (Config.WORLD_TILE_HEIGHT + 1)) {
-                    // top and bottom border
-                    int tileX = j - (Config.WORLD_TILE_WIDTH / 2) - 1; // move the border blocks out by one
-                    int tileY = i - (Config.WORLD_TILE_HEIGHT / 2) - 1;
-                    g2d.drawImage(tiles[tileNames.length - 1].tile, tileCoordToScreenLoc(tileX, Plane.X) + gamePanel.cameraX, tileCoordToScreenLoc(tileY, Plane.Y) + gamePanel.cameraY, Config.tileSize, Config.tileSize, null);
-
-                } else if (j == 0 || j == (Config.WORLD_TILE_WIDTH + 1)) {
-                    // left and right border
-                    int tileX = j - (Config.WORLD_TILE_WIDTH / 2) - 1; // move the border blocks out by one
-                    int tileY = i - (Config.WORLD_TILE_HEIGHT / 2) - 1;
-                    g2d.drawImage(tiles[tileNames.length - 1].tile, tileCoordToScreenLoc(tileX, Plane.X) + gamePanel.cameraX, tileCoordToScreenLoc(tileY, Plane.Y) + gamePanel.cameraY, Config.tileSize, Config.tileSize, null);
-
-                }
-            }
-        }
     }
 }

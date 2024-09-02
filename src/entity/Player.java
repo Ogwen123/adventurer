@@ -139,5 +139,6 @@ public class Player extends Entity{
         };
 
         g2d.drawImage(image, coordsToScreenLoc(x, Plane.X, gamePanel.cameraX), coordsToScreenLoc(y, Plane.Y, gamePanel.cameraY), Config.tileSize, Config.tileSize, null);
+        g2d.fillRect(coordsToScreenLoc(x + collisionArea.x, Plane.X, gamePanel.cameraX), coordsToScreenLoc(y + collisionArea.y, Plane.Y, gamePanel.cameraY), collisionArea.width, collisionArea.height);
     }
 }
