@@ -13,6 +13,8 @@ public class Player extends Entity{
     GamePanel gamePanel;
     KeyHandler keyHandler;
 
+    boolean[] COLLISION_TRACKER_RESET = {false, false, false, false};
+
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
@@ -51,13 +53,11 @@ public class Player extends Entity{
     public void update() {
         playerDirection();
 
-        collisionOn = false;
+        collisionOn = COLLISION_TRACKER_RESET; // {up, down, left, right}
         gamePanel.collisionChecker.checkTile(this);
 
-        if (!collisionOn) {
-            updateCamera();
-            playerMovement();
-        }
+        updateCamera();
+        playerMovement();
 
         // handle animating the motion of the sprite
         spriteTracker++;
@@ -77,16 +77,16 @@ public class Player extends Entity{
         int screenCentreX = (Config.WINDOW_TILE_WIDTH * Config.tileSize) / 2;
         int screenCentreY = (Config.WINDOW_TILE_HEIGHT * Config.tileSize) / 2;
 
-        if (((screenY + Config.tileSize / 2) < screenCentreY - Config.cameraBuffer) && keyHandler.up) {
+        if (((screenY + Config.tileSize / 2) < screenCentreY - Config.cameraBuffer) && keyHandler.up && !collisionOn[0]) {
             gamePanel.cameraY += speed;
         }
-        if (((screenY + Config.tileSize / 2) > screenCentreY + Config.cameraBuffer) && keyHandler.down) {
+        if (((screenY + Config.tileSize / 2) > screenCentreY + Config.cameraBuffer) && keyHandler.down && !collisionOn[1]) {
             gamePanel.cameraY -= speed;
         }
-        if (((screenX + Config.tileSize / 2) < screenCentreX - Config.cameraBuffer) && keyHandler.left) {
+        if (((screenX + Config.tileSize / 2) < screenCentreX - Config.cameraBuffer) && keyHandler.left && !collisionOn[2]) {
             gamePanel.cameraX += speed;
         }
-        if (((screenX + Config.tileSize / 2) > screenCentreX + Config.cameraBuffer) && keyHandler.right) {
+        if (((screenX + Config.tileSize / 2) > screenCentreX + Config.cameraBuffer) && keyHandler.right && !collisionOn[3]) {
             gamePanel.cameraX -= speed;
         }
 
@@ -96,16 +96,16 @@ public class Player extends Entity{
         direction = Direction.NONE; // reset direction
 
         // update player position
-        if (keyHandler.up && !keyHandler.down) {// the '&& !...' bit is to not animate when opposing keys are held
+        if (keyHandler.up && !keyHandler.down && !collisionOn[0]) {// the first '&& !...' bit is to not animate when opposing keys are held
             direction = Direction.UP;
         }
-        if (keyHandler.down && !keyHandler.up) {
+        if (keyHandler.down && !keyHandler.up && !collisionOn[1]) {
             direction = Direction.DOWN;
         }
-        if (keyHandler.left && !keyHandler.right) {
+        if (keyHandler.left && !keyHandler.right && !collisionOn[2]) {
             direction = Direction.LEFT;
         }
-        if (keyHandler.right && !keyHandler.left) {
+        if (keyHandler.right && !keyHandler.left && !collisionOn[3]) {
             direction = Direction.RIGHT;
         }
     }

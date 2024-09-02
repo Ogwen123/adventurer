@@ -13,67 +13,64 @@ public class CollisionChecker {
     }
 
     public void checkTile(Entity entity) {
-        int leftVertexPlayerCoord = entity.x + entity.collisionArea.x;
-        int rightVertexPlayerCoord = entity.x + entity.collisionArea.x + entity.collisionArea.width;
-        int topVertexPlayerCoord = entity.y + entity.collisionArea.y;
-        int bottomVertexPlayerCoord = entity.y + entity.collisionArea.y + entity.collisionArea.height;
+        int leftPlayerCoord = entity.x + entity.collisionArea.x + (gamePanel.tileManager.centreTileX * Config.tileSize);
+        int rightPlayerCoord = entity.x + entity.collisionArea.x + entity.collisionArea.width + (gamePanel.tileManager.centreTileX * Config.tileSize);
+        int topPlayerCoord = entity.y + entity.collisionArea.y + (gamePanel.tileManager.centreTileY * Config.tileSize);
+        int bottomPlayerCoord = entity.y + entity.collisionArea.y + entity.collisionArea.height + (gamePanel.tileManager.centreTileY * Config.tileSize);
 
         // convert player coords to tile coord
 
-        int leftVertexTileCoord = leftVertexPlayerCoord / Config.tileSize;
-        int rightVertexTileCoord = rightVertexPlayerCoord / Config.tileSize;
-        int topVertexTileCoord = topVertexPlayerCoord / Config.tileSize;
-        int bottomVertexTileCoord = bottomVertexPlayerCoord / Config.tileSize;
+        int leftTileCoord = leftPlayerCoord / Config.tileSize;
+        int rightTileCoord = rightPlayerCoord / Config.tileSize;
+        int topTileCoord = topPlayerCoord / Config.tileSize;
+        int bottomTileCoord = bottomPlayerCoord / Config.tileSize;
 
         int tile1, tile2;
 
-        switch (entity.direction) {
-            case Direction.UP:
-                topVertexTileCoord = (topVertexPlayerCoord - entity.speed) / Config.tileSize;
+        // not in a switch statement to allow for diagonal movement
+        if (entity.direction == Direction.UP) {
+            topTileCoord = (topPlayerCoord - entity.speed) / Config.tileSize;
 
-                gamePanel.debug.collisionY = topVertexTileCoord - 1;
-                gamePanel.debug.collisionX1 = leftVertexTileCoord - 1;
-                gamePanel.debug.collisionX2 = rightVertexTileCoord - 1;
+            tile1 = gamePanel.tileManager.map.get(topTileCoord).get(leftTileCoord);
+            tile2 = gamePanel.tileManager.map.get(topTileCoord).get(rightTileCoord);
 
-                try {
-                    tile1 = gamePanel.tileManager.map.get(topVertexTileCoord + gamePanel.tileManager.centreTileY - 1).get(leftVertexTileCoord + gamePanel.tileManager.centreTileX - 1);
-                    tile2 = gamePanel.tileManager.map.get(topVertexTileCoord + gamePanel.tileManager.centreTileY - 1).get(rightVertexTileCoord + gamePanel.tileManager.centreTileX - 1);
-                } catch(IndexOutOfBoundsException e) {
-                    entity.collisionOn = true;
-                    return;
-                }
-
-                if (gamePanel.tileManager.tiles[tile1].collision || gamePanel.tileManager.tiles[tile2].collision) {
-                    entity.collisionOn = true;
-                }
-                break;
-
-            case Direction.DOWN:
-                bottomVertexTileCoord = (bottomVertexPlayerCoord + entity.speed) / Config.tileSize;
-
-                gamePanel.debug.collisionY = bottomVertexTileCoord - 1;
-                gamePanel.debug.collisionX1 = leftVertexTileCoord - 1;
-                gamePanel.debug.collisionX2 = rightVertexTileCoord - 1;
-
-                try {
-                    tile1 = gamePanel.tileManager.map.get(bottomVertexTileCoord + gamePanel.tileManager.centreTileY - 1).get(leftVertexTileCoord + gamePanel.tileManager.centreTileX - 1);
-                    tile2 = gamePanel.tileManager.map.get(bottomVertexTileCoord + gamePanel.tileManager.centreTileY - 1).get(rightVertexTileCoord + gamePanel.tileManager.centreTileX - 1);
-                } catch(IndexOutOfBoundsException e) {
-                    entity.collisionOn = true;
-                    return;
-                }
-
-                if (gamePanel.tileManager.tiles[tile1].collision || gamePanel.tileManager.tiles[tile2].collision) {
-                    entity.collisionOn = true;
-                }
-                break;
-
-            case Direction.LEFT:
-                break;
-            case Direction.RIGHT:
-                break;
-            case Direction.NONE:
-                return;
+            if (gamePanel.tileManager.tiles[tile1].collision || gamePanel.tileManager.tiles[tile2].collision) {
+                entity.collisionOn[0] = true;
+            }
         }
+
+        if (entity.direction == Direction.DOWN) {
+            bottomTileCoord = (bottomPlayerCoord + entity.speed) / Config.tileSize;
+
+            tile1 = gamePanel.tileManager.map.get(bottomTileCoord).get(leftTileCoord);
+            tile2 = gamePanel.tileManager.map.get(bottomTileCoord).get(rightTileCoord);
+
+            if (gamePanel.tileManager.tiles[tile1].collision || gamePanel.tileManager.tiles[tile2].collision) {
+                entity.collisionOn[1] = true;
+            }
+        }
+
+        if (entity.direction == Direction.LEFT) {
+            leftTileCoord = (leftPlayerCoord - entity.speed) / Config.tileSize;
+
+            tile1 = gamePanel.tileManager.map.get(bottomTileCoord).get(leftTileCoord);
+            tile2 = gamePanel.tileManager.map.get(topTileCoord).get(leftTileCoord);
+
+            if (gamePanel.tileManager.tiles[tile1].collision || gamePanel.tileManager.tiles[tile2].collision) {
+                entity.collisionOn[2] = true;
+            }
+        }
+
+        if (entity.direction == Direction.RIGHT) {
+            rightTileCoord = (rightPlayerCoord + entity.speed) / Config.tileSize;
+
+            tile1 = gamePanel.tileManager.map.get(bottomTileCoord).get(rightTileCoord);
+            tile2 = gamePanel.tileManager.map.get(topTileCoord).get(rightTileCoord);
+
+            if (gamePanel.tileManager.tiles[tile1].collision || gamePanel.tileManager.tiles[tile2].collision) {
+                entity.collisionOn[3] = true;
+            }
+        }
+
     }
 }

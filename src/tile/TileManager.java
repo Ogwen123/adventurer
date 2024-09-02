@@ -15,6 +15,7 @@ public class TileManager {
     GamePanel gamePanel;
     public Tile[] tiles;
     public ArrayList<ArrayList<Integer>> map = new ArrayList<>();
+
     // map meta data
     public int centreTileX, centreTileY;
 
@@ -35,10 +36,6 @@ public class TileManager {
             for (int i = 0; i < tileNames.length; i++) {
                 tiles[i] = new Tile();
                 tiles[i].tile = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("tile/" + tileNames[i][0] + ".png")));
-                System.out.println(tileNames[i][0]);
-                System.out.println((Objects.equals(tileNames[i][1], "true")));
-                System.out.println(tileNames[i][1]);
-                System.out.println("---------------------------");
                 tiles[i].collision = (Objects.equals(tileNames[i][1], "true"));
             }
         } catch (IOException e) {

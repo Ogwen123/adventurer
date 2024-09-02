@@ -24,7 +24,7 @@ public class Entity {
     public int animation_duration; // number of frames before the sprite switches
 
     public Rectangle collisionArea;
-    public boolean collisionOn = false;
+    public boolean[] collisionOn = {false, false, false, false}; // {up, down, left, right}
 
     public enum Plane {
         X,
