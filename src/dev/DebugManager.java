@@ -11,7 +11,7 @@ public class DebugManager {
     TileManager tileManager;
     GamePanel gamePanel;
     public int highlightX, highlightY = 0;
-    public int collisionY, collisionX1, collisionX2 = 0;
+    public int collision1, collision2_1, collision2_2 = 0;
 
     public DebugManager(TileManager tileManager, GamePanel gamePanel) {
         this.tileManager = tileManager;
@@ -25,9 +25,15 @@ public class DebugManager {
 
         if (Config.Debug.highlightSpecifiedTile) g2d.fillRect(tileManager.tileCoordToScreenLoc(highlightX, Entity.Plane.X) + gamePanel.cameraX, tileManager.tileCoordToScreenLoc(highlightY, Entity.Plane.Y) + gamePanel.cameraY, Config.tileSize, Config.tileSize);
 
-        if (Config.Debug.highlightCollisionChecks) {
-            g2d.fillRect(tileManager.tileCoordToScreenLoc(collisionX1 - tileManager.centreTileX, Entity.Plane.X) + gamePanel.cameraX, tileManager.tileCoordToScreenLoc(collisionY - tileManager.centreTileY, Entity.Plane.Y) + gamePanel.cameraY, Config.tileSize, Config.tileSize);
-            g2d.fillRect(tileManager.tileCoordToScreenLoc(collisionX2 - tileManager.centreTileX, Entity.Plane.X) + gamePanel.cameraX, tileManager.tileCoordToScreenLoc(collisionY - tileManager.centreTileY, Entity.Plane.Y) + gamePanel.cameraY, Config.tileSize, Config.tileSize);
+        if (Config.Debug.highlightCollisionChecksVertical) {
+            g2d.fillRect(tileManager.tileCoordToScreenLoc(collision2_1 - tileManager.centreTileX, Entity.Plane.X) + gamePanel.cameraX, tileManager.tileCoordToScreenLoc(collision1 - tileManager.centreTileY, Entity.Plane.Y) + gamePanel.cameraY, Config.tileSize, Config.tileSize);
+            g2d.fillRect(tileManager.tileCoordToScreenLoc(collision2_2 - tileManager.centreTileX, Entity.Plane.X) + gamePanel.cameraX, tileManager.tileCoordToScreenLoc(collision1 - tileManager.centreTileY, Entity.Plane.Y) + gamePanel.cameraY, Config.tileSize, Config.tileSize);
         }
+
+        if (Config.Debug.highlightCollisionChecksHorizontal) {
+            g2d.fillRect(tileManager.tileCoordToScreenLoc(collision1 - tileManager.centreTileX, Entity.Plane.X) + gamePanel.cameraX, tileManager.tileCoordToScreenLoc(collision2_1 - tileManager.centreTileY, Entity.Plane.Y) + gamePanel.cameraY, Config.tileSize, Config.tileSize);
+            g2d.fillRect(tileManager.tileCoordToScreenLoc(collision1 - tileManager.centreTileX, Entity.Plane.X) + gamePanel.cameraX, tileManager.tileCoordToScreenLoc(collision2_2 - tileManager.centreTileY, Entity.Plane.Y) + gamePanel.cameraY, Config.tileSize, Config.tileSize);
+        }
+
     }
 }

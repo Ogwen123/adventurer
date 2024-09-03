@@ -35,7 +35,7 @@ public class Config {
         static public final boolean showCameraBufferBox = false;
         static public final boolean highlightOriginTile = false;
         static public final boolean highlightSpecifiedTile = false;
-        static public final boolean highlightCollisionChecks = false;
+        static public final boolean highlightCollisionChecksVertical = false;
+        static public final boolean highlightCollisionChecksHorizontal = false;
     }
-
 }

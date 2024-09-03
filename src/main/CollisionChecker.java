@@ -1,7 +1,6 @@
 package main;
 
 import entity.Entity;
-import entity.Entity.Direction;
 import utils.Config;
 
 
@@ -28,48 +27,53 @@ public class CollisionChecker {
         int tile1, tile2;
 
         // not in a switch statement to allow for diagonal movement
-        if (entity.direction == Direction.UP) {
-            topTileCoord = (topPlayerCoord - entity.speed) / Config.tileSize;
+        if (gamePanel.keyHandler.up) {
+            int temp = (topPlayerCoord - entity.speed) / Config.tileSize;
 
-            tile1 = gamePanel.tileManager.map.get(topTileCoord).get(leftTileCoord);
-            tile2 = gamePanel.tileManager.map.get(topTileCoord).get(rightTileCoord);
+            tile1 = gamePanel.tileManager.map.get(temp).get(leftTileCoord);
+            tile2 = gamePanel.tileManager.map.get(temp).get(rightTileCoord);
 
             if (gamePanel.tileManager.tiles[tile1].collision || gamePanel.tileManager.tiles[tile2].collision) {
                 entity.collisionOn[0] = true;
             }
         }
 
-        if (entity.direction == Direction.DOWN) {
-            bottomTileCoord = (bottomPlayerCoord + entity.speed) / Config.tileSize;
+        if (gamePanel.keyHandler.down) {
+            int temp = (bottomPlayerCoord + entity.speed) / Config.tileSize;
 
-            tile1 = gamePanel.tileManager.map.get(bottomTileCoord).get(leftTileCoord);
-            tile2 = gamePanel.tileManager.map.get(bottomTileCoord).get(rightTileCoord);
+            tile1 = gamePanel.tileManager.map.get(temp).get(leftTileCoord);
+            tile2 = gamePanel.tileManager.map.get(temp).get(rightTileCoord);
 
             if (gamePanel.tileManager.tiles[tile1].collision || gamePanel.tileManager.tiles[tile2].collision) {
                 entity.collisionOn[1] = true;
             }
         }
 
-        if (entity.direction == Direction.LEFT) {
-            leftTileCoord = (leftPlayerCoord - entity.speed) / Config.tileSize;
+        if (gamePanel.keyHandler.left) {
+            int temp = (leftPlayerCoord - entity.speed) / Config.tileSize;
 
-            tile1 = gamePanel.tileManager.map.get(bottomTileCoord).get(leftTileCoord);
-            tile2 = gamePanel.tileManager.map.get(topTileCoord).get(leftTileCoord);
+            tile1 = gamePanel.tileManager.map.get(bottomTileCoord).get(temp);
+            tile2 = gamePanel.tileManager.map.get(topTileCoord).get(temp);
 
             if (gamePanel.tileManager.tiles[tile1].collision || gamePanel.tileManager.tiles[tile2].collision) {
                 entity.collisionOn[2] = true;
             }
         }
 
-        if (entity.direction == Direction.RIGHT) {
-            rightTileCoord = (rightPlayerCoord + entity.speed) / Config.tileSize;
+        if (gamePanel.keyHandler.right) {
+            int temp = (rightPlayerCoord + entity.speed) / Config.tileSize;
 
-            tile1 = gamePanel.tileManager.map.get(bottomTileCoord).get(rightTileCoord);
-            tile2 = gamePanel.tileManager.map.get(topTileCoord).get(rightTileCoord);
+            gamePanel.debug.collision1 = temp;
+            gamePanel.debug.collision2_1 = topTileCoord;
+            gamePanel.debug.collision2_2 = bottomTileCoord;
+
+            tile1 = gamePanel.tileManager.map.get(bottomTileCoord).get(temp);
+            tile2 = gamePanel.tileManager.map.get(topTileCoord).get(temp);
 
             if (gamePanel.tileManager.tiles[tile1].collision || gamePanel.tileManager.tiles[tile2].collision) {
                 entity.collisionOn[3] = true;
             }
+            System.out.println(entity.collisionOn[0] + " " + entity.collisionOn[1] + " " + entity.collisionOn[2] + " " + entity.collisionOn[3]);
         }
 
     }

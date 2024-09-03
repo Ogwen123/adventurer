@@ -53,7 +53,7 @@ public class Player extends Entity{
     public void update() {
         playerDirection();
 
-        collisionOn = COLLISION_TRACKER_RESET; // {up, down, left, right}
+        collisionOn = COLLISION_TRACKER_RESET.clone(); // {up, down, left, right}
         gamePanel.collisionChecker.checkTile(this);
 
         updateCamera();
@@ -93,35 +93,37 @@ public class Player extends Entity{
     }
 
     public void playerDirection() {
+        // direction should only be used for the sprite, not for movement or camera position
+
         direction = Direction.NONE; // reset direction
 
-        // update player position
-        if (keyHandler.up && !keyHandler.down && !collisionOn[0]) {// the first '&& !...' bit is to not animate when opposing keys are held
+        // update player direction
+        if ((keyHandler.up && !keyHandler.down)) {// the first '&& !...' bit is to not animate when opposing keys are held
             direction = Direction.UP;
         }
-        if (keyHandler.down && !keyHandler.up && !collisionOn[1]) {
+        if ((keyHandler.down && !keyHandler.up)) {
             direction = Direction.DOWN;
         }
-        if (keyHandler.left && !keyHandler.right && !collisionOn[2]) {
+        if ((keyHandler.left && !keyHandler.right)) {
             direction = Direction.LEFT;
         }
-        if (keyHandler.right && !keyHandler.left && !collisionOn[3]) {
+        if ((keyHandler.right && !keyHandler.left)) {
             direction = Direction.RIGHT;
         }
     }
 
     public void playerMovement() {
 
-        if (direction == Direction.UP) {// the '&& !...' bit is to not animate when opposing keys are held
+        if (keyHandler.up && !collisionOn[0]) {
             y -= speed;
         }
-        if (direction == Direction.DOWN) {
+        if (keyHandler.down && !collisionOn[1]) {
             y += speed;
         }
-        if (direction == Direction.LEFT) {
+        if (keyHandler.left && !collisionOn[2]) {
             x -= speed;
         }
-        if (direction == Direction.RIGHT) {
+        if (keyHandler.right && !collisionOn[3]) {
             x += speed;
         }
     }
@@ -139,6 +141,6 @@ public class Player extends Entity{
         };
 
         g2d.drawImage(image, coordsToScreenLoc(x, Plane.X, gamePanel.cameraX), coordsToScreenLoc(y, Plane.Y, gamePanel.cameraY), Config.tileSize, Config.tileSize, null);
-        g2d.fillRect(coordsToScreenLoc(x + collisionArea.x, Plane.X, gamePanel.cameraX), coordsToScreenLoc(y + collisionArea.y, Plane.Y, gamePanel.cameraY), collisionArea.width, collisionArea.height);
+
     }
 }
