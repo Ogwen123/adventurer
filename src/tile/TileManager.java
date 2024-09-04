@@ -44,7 +44,7 @@ public class TileManager {
     }
 
     public void loadMap() {
-        InputStream stream = getClass().getClassLoader().getResourceAsStream("maps/map_03.txt");
+        InputStream stream = getClass().getClassLoader().getResourceAsStream("maps/" + Config.map + ".txt");
         if (stream == null) return;
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 
@@ -84,7 +84,7 @@ public class TileManager {
                 e.printStackTrace();
             }
 
-            if (line == null) break;
+            if (line == null || line.equals(Config.MapFormatting.objectDelimiter)) break; // don't need to read the object data in this function
 
             String[] numbers = line.split(" ");
             ArrayList<Integer> rowList = new ArrayList<>();
@@ -113,7 +113,7 @@ public class TileManager {
 
         for (int i = 0; i < map.size(); i++) {
             ArrayList<Integer> temp = map.get(i);
-            temp.add(0, barrierId);
+            temp.addFirst(barrierId);
             temp.add(barrierId);
             newMap.add(temp);
         }
@@ -125,8 +125,8 @@ public class TileManager {
         centreTileY += 1;
     }
 
-    public int tileCoordToScreenLoc(int coord, Plane plane) {
-        return (int) Math.floor((double) (coord * Config.tileSize) + ((double) ((plane == Plane.X ? Config.WINDOW_TILE_WIDTH : Config.WINDOW_TILE_HEIGHT) * Config.tileSize) / 2));
+    public static int tileCoordToScreenLoc(int coord, Plane plane, int camera) {
+        return (int) Math.floor((double) (coord * Config.tileSize) + ((double) ((plane == Plane.X ? Config.WINDOW_TILE_WIDTH : Config.WINDOW_TILE_HEIGHT) * Config.tileSize) / 2)) + camera;
     }
 
     public double distance(double x1, double y1, double x2, double y2) {
@@ -135,9 +135,7 @@ public class TileManager {
         double yDist = y1 - y2;
 
         //pythag
-        double distance = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
-
-        return distance;
+        return Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
     }
 
     public void draw(Graphics2D g2d) {
@@ -154,7 +152,7 @@ public class TileManager {
                 if (distance > threshold) continue;
 
                 int id = map.get(i).get(j);
-                g2d.drawImage(tiles[id].tile, tileCoordToScreenLoc(tileX, Plane.X) + gamePanel.cameraX, tileCoordToScreenLoc(tileY, Plane.Y) + gamePanel.cameraY, Config.tileSize, Config.tileSize, null);
+                g2d.drawImage(tiles[id].tile, tileCoordToScreenLoc(tileX, Plane.X, gamePanel.cameraX), tileCoordToScreenLoc(tileY, Plane.Y, gamePanel.cameraY), Config.tileSize, Config.tileSize, null);
             }
         }
 

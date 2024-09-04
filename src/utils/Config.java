@@ -21,6 +21,8 @@ public class Config {
 
     static public final int cameraBuffer = 10;
 
+    static public final String map = "map_03";
+
     public static class Keys {
         static public final int key_up = KeyEvent.VK_W;
         static public final int key_down = KeyEvent.VK_S;
@@ -37,5 +39,9 @@ public class Config {
         static public final boolean highlightSpecifiedTile = false;
         static public final boolean highlightCollisionChecksVertical = false;
         static public final boolean highlightCollisionChecksHorizontal = false;
+    }
+
+    public static class MapFormatting {
+        static public final String objectDelimiter = "<OBJECTS>";
     }
 }

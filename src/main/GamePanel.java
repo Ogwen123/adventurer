@@ -2,6 +2,7 @@ package main;
 
 import dev.DebugManager;
 import entity.Player;
+import object.ObjectManager;
 import tile.TileManager;
 import utils.handlers.KeyHandler;
 import utils.Profiler;
@@ -15,8 +16,11 @@ public class GamePanel extends JPanel implements Runnable {
     // game classes
     Thread gameThread;
     KeyHandler keyHandler = new KeyHandler();
-    TileManager tileManager = new TileManager(this);
+
     Player player = new Player(this, keyHandler);
+    TileManager tileManager = new TileManager(this);
+    ObjectManager objectManager = new ObjectManager(this);
+
     public CollisionChecker collisionChecker = new CollisionChecker(this);
 
     // game variables
@@ -67,6 +71,7 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2d = (Graphics2D) g;
 
         tileManager.draw(g2d);
+        objectManager.draw(g2d);
         if (Config.Debug.debug) debug.draw(g2d);
         player.draw(g2d);
 
