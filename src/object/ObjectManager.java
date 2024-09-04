@@ -1,48 +1,40 @@
 package object;
 
+import entity.Entity;
 import main.GamePanel;
+import tile.TileManager;
 import utils.Config;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.HashMap;
 
 public class ObjectManager {
 
     GamePanel gamePanel;
-    public ObjectMetadata[] objectMetadata;
     public ArrayList<Object> objects = new ArrayList<>();
 
-    // object images should be listed in order they would appear, i.e. wood_chest should be before wood_chest_open
-    private final String[][] objectNames = {{"wood_chest", "true"}, {"iron_chest", "true"}};
+    HashMap<String, ObjectMetadata> objectData = new HashMap<>(); // this stores data about each type of object
 
     public ObjectManager(GamePanel gamePanel) {
+        initObjectData();
+
         this.gamePanel = gamePanel;
 
-        objectMetadata = new ObjectMetadata[10];
 
-        loadObjectImages();
         loadObjectMap();
     }
 
-    public void loadObjectImages() {
-        try {
-            for (int i = 0; i < objectNames.length; i++) {
-                objectMetadata[i] = new ObjectMetadata();
-                objectMetadata[i].object = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("object/" + objectNames[i][0] + ".png")));
-                objectMetadata[i].collision = (Objects.equals(objectNames[i][1], "true"));
-                objectMetadata[i].type = objectNames[i][0];
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void initObjectData() {
+        objectData.put("wood_chest", new ObjectMetadata(true, "wood_chest", "wood_chest_closed"));
+        objectData.put("iron_chest", new ObjectMetadata(true, "iron_chest", "iron_chest_closed"));
+        objectData.put("null", new ObjectMetadata(true, "null", "null"));
     }
+
 
     public void loadObjectMap() {
         InputStream stream = getClass().getClassLoader().getResourceAsStream("maps/" + Config.map + ".txt");
@@ -70,24 +62,8 @@ public class ObjectManager {
             } else {
                 String[] splitLine = line.split(" ");
 
-                BufferedImage[] objectImages = new BufferedImage[10];
-
-                int imagesAdded = 0;
-
-                // each object can have multiple images, e.g. a chest has an image for being closed and an image for being open
-                for (ObjectMetadata omd : objectMetadata) {
-                    if (omd.type.startsWith(splitLine[0])) {
-                        objectImages[imagesAdded] = omd.object;
-                        imagesAdded++;
-                    }
-                }
-
-                objects.add(new Object(splitLine[0], Integer.parseInt(String.valueOf(splitLine[1])), Integer.parseInt(String.valueOf(splitLine[2])), objectImages));
+                objects.add(new Object(Integer.parseInt(String.valueOf(splitLine[1])), Integer.parseInt(String.valueOf(splitLine[2])), objectData.get(splitLine[0])));
             }
-        }
-
-        for(Object i: objects) {
-            System.out.println(i.type);
         }
     }
 
@@ -95,7 +71,8 @@ public class ObjectManager {
         for(Object i: objects) {
             // check if the object is visible, no point rendering it otherwise
             // render object
-            System.out.println(i.type);
+            i.draw(g2d, gamePanel.cameraX, gamePanel.cameraY);
+            g2d.drawImage(objectData.get("wood_chest").objectImages.get("wood_chest_closed"), TileManager.tileCoordToScreenLoc(0, Entity.Plane.X, gamePanel.cameraX), TileManager.tileCoordToScreenLoc(0, Entity.Plane.Y, gamePanel.cameraY), Config.tileSize, Config.tileSize, null);
         }
     }
 

@@ -5,24 +5,22 @@ import tile.TileManager;
 import utils.Config;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Object {
-    public BufferedImage[] object_images;
-    public boolean collision = false;
     public int x, y; // using tile coords
-    public String type;
-    public int imageTracker = 0;
+    public ObjectMetadata objectData;
+    public String currentImage;
 
-    public Object(String type, int x, int y, BufferedImage[] images) {
-        this.type = type;
+    public Object(int x, int y, ObjectMetadata objectData) {
         this.x = x;
         this.y = y;
-        this.object_images = images;
+        this.objectData = objectData;
+        currentImage = objectData.imageNames[0];
     }
 
     public void draw(Graphics2D g2d, int cameraX, int cameraY) {
-        g2d.drawImage(object_images[imageTracker], TileManager.tileCoordToScreenLoc(x, Entity.Plane.X, cameraX), TileManager.tileCoordToScreenLoc(y, Entity.Plane.Y, cameraY), Config.tileSize, Config.tileSize, null);
+        System.out.println("drawing " + TileManager.tileCoordToScreenLoc(x, Entity.Plane.X, cameraX) + " " + TileManager.tileCoordToScreenLoc(y, Entity.Plane.Y, cameraY));
+        g2d.drawImage(objectData.objectImages.get(currentImage), TileManager.tileCoordToScreenLoc(x, Entity.Plane.X, cameraX), TileManager.tileCoordToScreenLoc(y, Entity.Plane.Y, cameraY), Config.tileSize, Config.tileSize, null);
     }
 }
 

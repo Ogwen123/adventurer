@@ -32,7 +32,7 @@ public class Config {
     }
 
     public static class Debug {
-        static public final boolean debug = true;
+        static public final boolean debug = false;
         static public final boolean showStatsPanel = true;
         static public final boolean showCameraBufferBox = false;
         static public final boolean highlightOriginTile = false;

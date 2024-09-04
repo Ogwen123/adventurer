@@ -20,12 +20,14 @@ relearning java before uni
    - [x] grass
    - [ ] sand
  - [ ] object images
-   - [ ] chest
+   - [ ] wood chest
+   - [ ] iron chest
    - [ ] door
  - [x] camera system
  - [x] make camera system have a buffer where it doesn't do anything for the first ~100 pixels of walking
  - [ ] object system
-   - [ ] use json to store object metadata
+   - [x] display objects
+   - [ ] interact with objects
  - [x] collision with collide-able tiles like walls
  - [x] only render tiles that will show on the screen (not really needed but could be interesting to do)
  - [ ] main menu

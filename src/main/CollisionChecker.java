@@ -63,17 +63,12 @@ public class CollisionChecker {
         if (gamePanel.keyHandler.right) {
             int temp = (rightPlayerCoord + entity.speed) / Config.tileSize;
 
-            gamePanel.debug.collision1 = temp;
-            gamePanel.debug.collision2_1 = topTileCoord;
-            gamePanel.debug.collision2_2 = bottomTileCoord;
-
             tile1 = gamePanel.tileManager.map.get(bottomTileCoord).get(temp);
             tile2 = gamePanel.tileManager.map.get(topTileCoord).get(temp);
 
             if (gamePanel.tileManager.tiles[tile1].collision || gamePanel.tileManager.tiles[tile2].collision) {
                 entity.collisionOn[3] = true;
             }
-            System.out.println(entity.collisionOn[0] + " " + entity.collisionOn[1] + " " + entity.collisionOn[2] + " " + entity.collisionOn[3]);
         }
     }
 

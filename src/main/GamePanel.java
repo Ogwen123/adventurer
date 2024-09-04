@@ -75,7 +75,6 @@ public class GamePanel extends JPanel implements Runnable {
         if (Config.Debug.debug) debug.draw(g2d);
         player.draw(g2d);
 
-
         g2d.dispose();
     }
 
