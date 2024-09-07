@@ -25,13 +25,12 @@ public class ObjectManager {
 
         this.gamePanel = gamePanel;
 
-
         loadObjectMap();
     }
 
     public void initObjectData() {
-        objectData.put("wood_chest", new ObjectMetadata(true, "wood_chest", "wood_chest_closed"));
-        objectData.put("iron_chest", new ObjectMetadata(true, "iron_chest", "iron_chest_closed"));
+        objectData.put("wood_chest", new ObjectMetadata(true, "wood_chest", "wood_chest_closed", "wood_chest_open"));
+        objectData.put("iron_chest", new ObjectMetadata(true, "iron_chest", "iron_chest_closed", "iron_chest_open"));
         objectData.put("null", new ObjectMetadata(true, "null", "null"));
     }
 
@@ -68,11 +67,18 @@ public class ObjectManager {
     }
 
     public void draw(Graphics2D g2d) {
-        for(Object i: objects) {
+        int threshold = (Math.max(Config.WINDOW_TILE_HEIGHT * Config.tileSize, Config.WINDOW_TILE_WIDTH * Config.tileSize));
+
+        for(Object object: objects) {
             // check if the object is visible, no point rendering it otherwise
             // render object
-            i.draw(g2d, gamePanel.cameraX, gamePanel.cameraY);
-            g2d.drawImage(objectData.get("wood_chest").objectImages.get("wood_chest_closed"), TileManager.tileCoordToScreenLoc(0, Entity.Plane.X, gamePanel.cameraX), TileManager.tileCoordToScreenLoc(0, Entity.Plane.Y, gamePanel.cameraY), Config.tileSize, Config.tileSize, null);
+
+            // optimisations
+            double distance = TileManager.distance(object.x * Config.tileSize, object.y * Config.tileSize, gamePanel.getPlayerX(), gamePanel.getPlayerY());
+            if (distance > threshold) continue;
+
+            object.draw(g2d, gamePanel.cameraX, gamePanel.cameraY);
+
         }
     }
 

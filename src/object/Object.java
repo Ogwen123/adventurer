@@ -19,7 +19,6 @@ public class Object {
     }
 
     public void draw(Graphics2D g2d, int cameraX, int cameraY) {
-        System.out.println("drawing " + TileManager.tileCoordToScreenLoc(x, Entity.Plane.X, cameraX) + " " + TileManager.tileCoordToScreenLoc(y, Entity.Plane.Y, cameraY));
         g2d.drawImage(objectData.objectImages.get(currentImage), TileManager.tileCoordToScreenLoc(x, Entity.Plane.X, cameraX), TileManager.tileCoordToScreenLoc(y, Entity.Plane.Y, cameraY), Config.tileSize, Config.tileSize, null);
     }
 }

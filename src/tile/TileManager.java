@@ -129,7 +129,7 @@ public class TileManager {
         return (int) Math.floor((double) (coord * Config.tileSize) + ((double) ((plane == Plane.X ? Config.WINDOW_TILE_WIDTH : Config.WINDOW_TILE_HEIGHT) * Config.tileSize) / 2)) + camera;
     }
 
-    public double distance(double x1, double y1, double x2, double y2) {
+    public static double distance(double x1, double y1, double x2, double y2) {
 
         double xDist = x1 - x2;
         double yDist = y1 - y2;
@@ -139,6 +139,7 @@ public class TileManager {
     }
 
     public void draw(Graphics2D g2d) {
+        int threshold = (Math.max(Config.WINDOW_TILE_HEIGHT * Config.tileSize, Config.WINDOW_TILE_WIDTH * Config.tileSize));
 
         // draw tiles from map
         for (int i = 0; i < map.size(); i++) {
@@ -148,7 +149,6 @@ public class TileManager {
 
                 // optimisations
                 double distance = distance(tileX * Config.tileSize, tileY * Config.tileSize, gamePanel.getPlayerX(), gamePanel.getPlayerY());
-                int threshold = (Math.max(Config.WINDOW_TILE_HEIGHT * Config.tileSize, Config.WINDOW_TILE_WIDTH * Config.tileSize));
                 if (distance > threshold) continue;
 
                 int id = map.get(i).get(j);

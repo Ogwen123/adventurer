@@ -28,6 +28,9 @@ relearning java before uni
  - [ ] object system
    - [x] display objects
    - [ ] interact with objects
+     - [ ] register clicks
+     - [ ] convert the click to a tile coord
+     - [ ] run the on click function for the object at that tile coord
  - [x] collision with collide-able tiles like walls
  - [x] only render tiles that will show on the screen (not really needed but could be interesting to do)
  - [ ] main menu

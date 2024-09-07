@@ -21,7 +21,7 @@ public class Config {
 
     static public final int cameraBuffer = 10;
 
-    static public final String map = "map_03";
+    static public final String map = "map_04";
 
     public static class Keys {
         static public final int key_up = KeyEvent.VK_W;
