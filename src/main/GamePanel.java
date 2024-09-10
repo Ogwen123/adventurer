@@ -16,6 +16,7 @@ public class GamePanel extends JPanel implements Runnable {
     // game classes
     Thread gameThread;
     KeyHandler keyHandler = new KeyHandler();
+    MainMenu mainMenu = new MainMenu();
 
     Player player = new Player(this, keyHandler);
     TileManager tileManager = new TileManager(this);
@@ -25,6 +26,15 @@ public class GamePanel extends JPanel implements Runnable {
 
     // game variables
     public int cameraX, cameraY;
+
+    // game state
+    public enum GameState {
+        MainMenu,
+        Active,
+        Paused
+    }
+
+    public GameState gameState;
 
     // debug classes
     Profiler profiler;
@@ -37,6 +47,8 @@ public class GamePanel extends JPanel implements Runnable {
         this.profiler = profiler;
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
+
+        gameState = GameState.MainMenu;
     }
 
     public void startGameThread() {
@@ -70,10 +82,15 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2d = (Graphics2D) g;
 
-        tileManager.draw(g2d);
-        objectManager.draw(g2d);
         if (Config.Debug.debug) debug.draw(g2d);
-        player.draw(g2d);
+
+        if (gameState == GameState.MainMenu) {
+            this.add(mainMenu);
+        } else {
+            tileManager.draw(g2d);
+            objectManager.draw(g2d);
+            player.draw(g2d);
+        }
 
         g2d.dispose();
     }
