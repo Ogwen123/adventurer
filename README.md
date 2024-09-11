@@ -1,5 +1,5 @@
 # adventurer
-relearning java before uni
+not trying to make a fully fledged game just relearning java before uni
 
 ## TODO
  - [x] show sprites
@@ -20,8 +20,8 @@ relearning java before uni
    - [x] grass
    - [ ] sand
  - [ ] object images
-   - [ ] wood chest
-   - [ ] iron chest
+   - [x] wood chest
+   - [x] iron chest
    - [ ] door
  - [x] camera system
  - [x] make camera system have a buffer where it doesn't do anything for the first ~100 pixels of walking
